@@ -56,15 +56,12 @@
 }
 
 .instagram {
-  /* color: transparent; */
-  background-color: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
-  background-color: -webkit-radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
-  background-clip: text;
-  -webkit-background-clip: text;
+  color: black;
+  
 }
 
-.angellist {
-  color: grey;
+.youtube {
+  color: black;
 }
 
 .icon-btn:hover {
@@ -72,20 +69,16 @@
   color: #FFFFFF;
 }
 
-.linkedin:hover {
-  background-color: #0077b5;
-}
-
-.angellist:hover {
-  background-color: grey;
-}
-
 .github:hover {
   background-color: black;
 }
 
 .instagram:hover {
-  background-color: #fd5949;
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+}
+
+.youtube:hover {
+  background-color: #ff0000;
 }
 
 /* Buttons - Read Me, Contact Us */
