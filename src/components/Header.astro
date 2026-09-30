@@ -1,0 +1,159 @@
+---
+import Icon from './Icon.astro';
+import { person } from '../data/profile';
+
+const nav = [
+  { href: '#about', label: 'About', wide: true },
+  { href: '#work', label: 'Work' },
+  { href: '#projects', label: 'Projects' },
+  { href: '#clinical', label: 'Clinical', wide: true },
+  { href: '#contact', label: 'Contact' },
+];
+---
+
+<header class="header">
+  <div class="wrap bar">
+    <a href="#top" class="brand" aria-label={`${person.name}, back to top`}>
+      <span class="mark" aria-hidden="true">KN</span>
+      <span class="brand-name">{person.shortName}</span>
+    </a>
+    <nav aria-label="Sections">
+      <ul role="list">
+        {nav.map((n) => (
+          <li class:list={{ wide: n.wide }}>
+            <a href={n.href}>{n.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <button class="theme" type="button" aria-label="Toggle dark mode" data-theme-toggle>
+      <span class="i-sun"><Icon name="sun" /></span>
+      <span class="i-moon"><Icon name="moon" /></span>
+    </button>
+  </div>
+</header>
+
+<script is:inline>
+  (function () {
+    var btn = document.querySelector('[data-theme-toggle]');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var root = document.documentElement;
+      var current = root.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      var next = current === 'dark' ? 'light' : 'dark';
+      root.dataset.theme = next;
+      try {
+        localStorage.setItem('theme', next);
+      } catch (e) {}
+    });
+  })();
+</script>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    backdrop-filter: saturate(1.4) blur(12px);
+    -webkit-backdrop-filter: saturate(1.4) blur(12px);
+    border-bottom: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    height: 64px;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    flex-shrink: 0;
+  }
+  .mark {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+    background: var(--accent);
+    color: var(--accent-ink);
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    letter-spacing: 0.02em;
+  }
+  nav {
+    margin-left: auto;
+    min-width: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  nav::-webkit-scrollbar {
+    display: none;
+  }
+  nav ul {
+    display: flex;
+    gap: 4px;
+    margin: 0;
+  }
+  nav a {
+    display: block;
+    padding: 8px 12px;
+    border-radius: 999px;
+    font-size: 0.92rem;
+    color: var(--muted);
+    white-space: nowrap;
+    transition:
+      color 0.2s ease,
+      background 0.2s ease;
+  }
+  nav a:hover {
+    color: var(--text);
+    background: var(--accent-soft);
+  }
+  .theme {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--text);
+    cursor: pointer;
+  }
+  .theme:hover {
+    border-color: var(--accent);
+  }
+  .i-moon {
+    display: none;
+  }
+  :global(:root[data-theme='dark']) .i-sun {
+    display: none;
+  }
+  :global(:root[data-theme='dark']) .i-moon {
+    display: block;
+  }
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme='light'])) .i-sun {
+      display: none;
+    }
+    :global(:root:not([data-theme='light'])) .i-moon {
+      display: block;
+    }
+  }
+  @media (max-width: 640px) {
+    .brand-name,
+    .wide {
+      display: none;
+    }
+    nav a {
+      padding: 8px 9px;
+      font-size: 0.88rem;
+    }
+  }
+</style>

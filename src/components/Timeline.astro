@@ -1,0 +1,74 @@
+---
+import { clinical } from '../data/profile';
+---
+
+<ol class="timeline" role="list">
+  {clinical.map((c) => (
+    <li>
+      <p class="dates">{c.dates}</p>
+      <div>
+        <h3>{c.title}</h3>
+        <p class="org">{c.org}</p>
+      </div>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .timeline {
+    position: relative;
+    margin: 0;
+    padding-left: 26px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 10px;
+    bottom: 10px;
+    width: 1px;
+    background: var(--line);
+  }
+  li {
+    position: relative;
+    display: grid;
+    gap: 2px 32px;
+    padding-block: 16px;
+  }
+  li + li {
+    border-top: 1px solid var(--line);
+  }
+  li::before {
+    content: '';
+    position: absolute;
+    left: -26px;
+    top: 24px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--accent);
+  }
+  li:first-child::before {
+    background: var(--accent);
+  }
+  @media (min-width: 640px) {
+    li {
+      grid-template-columns: 170px 1fr;
+      align-items: baseline;
+    }
+  }
+  .dates {
+    font-size: 0.88rem;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+  h3 {
+    font-size: 1.08rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .org {
+    color: var(--muted);
+  }
+</style>

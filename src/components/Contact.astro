@@ -1,0 +1,65 @@
+---
+import Icon from './Icon.astro';
+import { person, links } from '../data/profile';
+---
+
+<section class="contact" id="contact" aria-labelledby="contact-title">
+  <div class="wrap">
+    <p class="section-num">06</p>
+    <h2 id="contact-title" class="serif title">Let’s talk about medicine, teaching or code.</h2>
+    <p class="note">
+      For collaborations, questions about my projects, or just to say hello, email is the fastest way to reach
+      me.
+    </p>
+    <a class="email serif" href={`mailto:${person.email}`}>{person.email}</a>
+    <ul class="social" role="list">
+      <li>
+        <a class="btn" href={links.linkedin} target="_blank" rel="me noopener"><Icon name="linkedin" /> LinkedIn</a>
+      </li>
+      <li>
+        <a class="btn" href={links.github} target="_blank" rel="me noopener"><Icon name="github" /> GitHub</a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<style>
+  .contact {
+    padding-block: clamp(80px, 12vw, 140px);
+    border-top: 1px solid var(--line);
+    background:
+      radial-gradient(60% 80% at 100% 0%, var(--accent-soft), transparent 70%),
+      var(--bg);
+  }
+  .title {
+    margin-top: 10px;
+    font-size: clamp(2.4rem, 6vw, 4.4rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    max-width: 16ch;
+  }
+  .note {
+    margin-top: 22px;
+    max-width: 54ch;
+    color: var(--muted);
+  }
+  .email {
+    display: inline-block;
+    margin-top: 36px;
+    font-size: clamp(1.5rem, 5vw, 2.6rem);
+    color: var(--accent);
+    border-bottom: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+    transition: border-color 0.2s ease;
+  }
+  .email:hover {
+    border-color: var(--accent);
+  }
+  .social {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 36px;
+  }
+</style>

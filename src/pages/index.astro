@@ -1,0 +1,58 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Section from '../components/Section.astro';
+import Experience from '../components/Experience.astro';
+import Projects from '../components/Projects.astro';
+import Timeline from '../components/Timeline.astro';
+import Credentials from '../components/Credentials.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+import { about } from '../data/profile';
+---
+
+<Base>
+  <Header />
+  <main id="main">
+    <Hero />
+
+    <Section id="about" num="01" title="About">
+      <div class="prose">
+        {about.map((p) => <p>{p}</p>)}
+      </div>
+    </Section>
+
+    <Section id="work" num="02" title="Work" kicker="Medical-education technology.">
+      <Experience />
+    </Section>
+
+    <Section id="projects" num="03" title="Projects" kicker="Things I have built and taught.">
+      <Projects />
+    </Section>
+
+    <Section id="clinical" num="04" title="Clinical" kicker="Three years in Kerala hospitals and public health.">
+      <Timeline />
+    </Section>
+
+    <Section id="credentials" num="05" title="Skills & training">
+      <Credentials />
+    </Section>
+
+    <Contact />
+  </main>
+  <Footer />
+</Base>
+
+<style>
+  .prose {
+    display: grid;
+    gap: 1.1em;
+    max-width: 62ch;
+    font-size: clamp(1.1rem, 1.6vw, 1.25rem);
+    line-height: 1.6;
+  }
+  .prose p:first-child::first-line {
+    font-weight: 500;
+  }
+</style>

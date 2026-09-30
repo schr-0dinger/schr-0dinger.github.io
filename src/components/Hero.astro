@@ -1,0 +1,166 @@
+---
+import { Picture } from 'astro:assets';
+import portrait from '../assets/portrait.jpg';
+import Icon from './Icon.astro';
+import EcgLine from './EcgLine.astro';
+import { person, links, facts } from '../data/profile';
+---
+
+<section class="hero" id="top">
+  <div class="wrap grid">
+    <div class="copy">
+      <p class="eyebrow">{person.location} · MBBS</p>
+      <h1 class="name serif">{person.name}</h1>
+      <p class="lede">
+        Doctor building <em class="serif">medical-education technology.</em>
+      </p>
+      <p class="sub">
+        Three years of clinical work in Kerala. Now CTO at <a class="link" href={links.medmust}>MedMust</a>, teaching ECG on
+        YouTube, and writing software in Python and on the web.
+      </p>
+      <div class="ctas">
+        <a class="btn btn-primary" href={`mailto:${person.email}`}><Icon name="mail" /> Get in touch</a>
+        <a class="btn" href={links.linkedin} rel="me noopener" target="_blank"><Icon name="linkedin" /> LinkedIn</a>
+        <a class="btn" href={links.github} rel="me noopener" target="_blank"><Icon name="github" /> GitHub</a>
+      </div>
+    </div>
+
+    <figure class="portrait">
+      <Picture
+        src={portrait}
+        formats={['webp']}
+        widths={[360, 540, 720]}
+        sizes="(min-width: 860px) 360px, 124px"
+        alt={`Portrait of ${person.name}`}
+        loading="eager"
+        fetchpriority="high"
+        quality={62}
+      />
+    </figure>
+  </div>
+
+  <div class="wrap trace">
+    <EcgLine />
+  </div>
+
+  <div class="wrap">
+    <dl class="facts">
+      {facts.map((f) => (
+        <div>
+          <dt>{f.label}</dt>
+          <dd class="serif">{f.value}</dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-top: clamp(40px, 8vw, 96px);
+    padding-bottom: clamp(48px, 7vw, 88px);
+  }
+  .grid {
+    display: grid;
+    gap: 40px;
+    align-items: center;
+  }
+  @media (min-width: 860px) {
+    .grid {
+      grid-template-columns: 1fr 360px;
+      gap: 64px;
+    }
+  }
+  .name {
+    margin-top: 18px;
+    font-size: clamp(3rem, 9vw, 6.4rem);
+    line-height: 0.95;
+    letter-spacing: -0.025em;
+  }
+  .lede {
+    margin-top: 22px;
+    font-size: clamp(1.3rem, 2.6vw, 1.7rem);
+    line-height: 1.3;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    max-width: 28ch;
+  }
+  .lede em {
+    font-size: 1.12em;
+    color: var(--accent);
+  }
+  .sub {
+    margin-top: 18px;
+    max-width: 52ch;
+    color: var(--muted);
+  }
+  .ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 32px;
+  }
+  .portrait {
+    position: relative;
+    order: -1;
+    width: 124px;
+    justify-self: start;
+  }
+  @media (min-width: 860px) {
+    .portrait {
+      order: 0;
+      width: 100%;
+      max-width: 360px;
+      justify-self: end;
+    }
+  }
+  .portrait::before {
+    content: '';
+    position: absolute;
+    inset: 8px -8px -8px 8px;
+    border: 1px solid var(--accent);
+    border-radius: var(--radius);
+    opacity: 0.5;
+  }
+  @media (min-width: 860px) {
+    .portrait::before {
+      inset: 14px -14px -14px 14px;
+    }
+  }
+  .portrait :global(img) {
+    position: relative;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: var(--radius);
+    filter: contrast(1.04);
+    box-shadow: var(--shadow);
+  }
+  .trace {
+    margin-top: clamp(40px, 6vw, 72px);
+    opacity: 0.9;
+  }
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 20px 0 0;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+  }
+  .facts div {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 2px;
+  }
+  .facts dd {
+    margin: 0;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    line-height: 1;
+  }
+  .facts dt {
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+</style>
